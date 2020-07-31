@@ -45,3 +45,17 @@ Please follow the following steps to deploy the environment and package:
 9. Run DB Seed ( optional ); php artisan db:seed
 10. Run Passport Install: php artisan passport:install
 11. You can you use the service at this point or you can deploy your server, virtual hosts, ssl, etc. 
+
+
+Services.php AWS Config Format
+```
+    'aws' => [
+        'name' => 'publicaccess',
+        'key' => '',
+        'secret' => '',
+        's3' => [
+            'location' => 's3.amazonaws.com',
+            'bucket' => ' ',
+        ],
+    ]
+```
