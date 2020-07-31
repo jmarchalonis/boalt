@@ -141,21 +141,21 @@ class AmazonController extends Controller
     public function createObject(Request $request)
     {
         $data = $request->validate([
-            'key' => 'required',
             'file' => 'required',
         ]);
 
         $extension = $request->file('file')->extension();
+        $key = uniqid($this->getBucket() . '_') . '.' . $extension;
 
         // Upload File to the bucket
         $result = $this->getS3Client()->putObject([
             'Bucket' => $this->getBucket(),
-            'Key' => uniqid($this->getBucket() . '_') . '.' . $extension,
+            'Key' => $key,
             'SourceFile' => $request->file('file'),
             'ACL' => 'public-read',
         ]);
 
-        return $this->setApiResponse(['file' => $result['ObjectURL']]);
+        return $this->setApiResponse([ 'key' => $key, 'file' => $result['ObjectURL']] );
     }
 
     /**
